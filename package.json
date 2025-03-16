@@ -1,15 +1,19 @@
 {
-  "name": "create-react-component",
-  "displayName": "create-react-component",
+  "name": "c-r-c-myyourtheir",
+  "displayName": "Create React Component (c-r-c)",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.98.0"
   },
   "categories": [
     "Other"
   ],
-  "publisher": "create-react-component",
+  "publisher": "myyourtheir",
+  "repository": {
+    "url": "https://github.com/myyourtheir/create-react-component"
+  },
+  "license": "MIT",
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
