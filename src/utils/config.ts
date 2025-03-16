@@ -1,3 +1,4 @@
+import { getComponentTpl, getIndexTpl, getStylesTpl } from "../templates";
 import { FileTypes } from "../types";
 
 export const FileTypeOptionsMap: Record<
@@ -16,4 +17,10 @@ export const FileTypeOptionsMap: Record<
     relativeTplPath: "/styles.template",
     getFileName: (componentName) => `${componentName}.module.scss`,
   },
+};
+
+export const tplsMap: Record<FileTypes, (componentName: string) => string> = {
+  component: getComponentTpl,
+  index: getIndexTpl,
+  styles: getStylesTpl,
 };

@@ -1,10 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
 import { mkdir, writeFile } from "fs/promises";
-import { ExtensionContext } from "vscode";
 import { FileTypes } from "../types";
-import { FileTypeOptionsMap } from "./config";
-
+import { FileTypeOptionsMap, tplsMap } from "./config";
 type FileCreatorConstructorParams = {
   componenFolderPath: string;
   tmpFolderPath: string;
@@ -44,11 +42,6 @@ export class FileCreator {
   }
 
   private extractFileContent(type: FileTypes) {
-    return fs
-      .readFileSync(
-        path.join(this.tmpFolderPath, FileTypeOptionsMap[type].relativeTplPath)
-      )
-      .toString()
-      .replace(/{componentName}/g, this.componentName);
+    return tplsMap[type](this.componentName);
   }
 }
