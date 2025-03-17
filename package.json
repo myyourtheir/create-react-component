@@ -2,7 +2,7 @@
   "name": "c-r-c-myyourtheir",
   "displayName": "Create React Component (c-r-c)",
   "description": "",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.98.0"
   },
@@ -17,24 +17,77 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "c-r-c:create-component",
-        "title": "Create React Component (c-r-c)",
-        "category": "c-r-c"
-      }
-    ],
-    "menus": {
-      "explorer/context": [
-        {
-          "when": "explorerResourceIsFolder",
-          "command": "c-r-c:create-component",
-          "group": "navigation"
-        }
-      ]
+  "commands": [
+    {
+      "command": "c-r-c:create-component",
+      "title": "Create React Component (c-r-c)",
+      "category": "c-r-c"
     }
+  ],
+  "menus": {
+    "explorer/context": [
+      {
+        "when": "explorerResourceIsFolder",
+        "command": "c-r-c:create-component",
+        "group": "navigation"
+      }
+    ]
   },
-  "scripts": {
+  "configuration": {
+    "title": "c-r-c",
+    "properties": {
+      "c-r-c.structure": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "children": {
+              "$ref": "#/definitions/Schema"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["folder", "file"]
+            },
+            "title": {
+              "type": "string"
+            },
+            "content": {
+              "type": "string"
+            }
+          },
+          "required": ["type", "title", "content"],
+          "additionalProperties": false
+        },
+        "definitions": {
+          "Schema": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "children": {
+                  "$ref": "#/definitions/Schema"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["folder", "file"]
+                },
+                "title": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": ["type", "title", "content"],
+              "additionalProperties": false
+            }
+          }
+        },
+        "description": "The structure of the component"
+      }
+    }
+  }
+},  "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",

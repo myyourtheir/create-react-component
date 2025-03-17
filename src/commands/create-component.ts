@@ -24,7 +24,7 @@ export const createComponent = (uri: any, context: ExtensionContext) => {
       }
       const fileCreator = new FileCreator({
         componentName,
-        componenFolderPath: path.join(contextMenuSourcePath, componentName),
+        rootPath: path.join(contextMenuSourcePath),
         tmpFolderPath: path.join(context.extensionPath, "src", "templates"),
       });
       fileCreator.createComponent();
