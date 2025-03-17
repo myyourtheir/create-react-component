@@ -1,6 +1,6 @@
 {
   "name": "c-r-c-myyourtheir",
-  "displayName": "Create React Component (c-r-c)",
+  "displayName": "Create Customized Component (c-r-c)",
   "description": "",
   "version": "0.1.0",
   "engines": {
@@ -17,36 +17,87 @@
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
-  "commands": [
-    {
-      "command": "c-r-c:create-component",
-      "title": "Create React Component (c-r-c)",
-      "category": "c-r-c"
-    }
-  ],
-  "menus": {
-    "explorer/context": [
+    "commands": [
       {
-        "when": "explorerResourceIsFolder",
         "command": "c-r-c:create-component",
-        "group": "navigation"
+        "title": "Create React Component (c-r-c)",
+        "category": "c-r-c"
       }
-    ]
-  },
-  "configuration": {
-    "title": "c-r-c",
-    "properties": {
-      "c-r-c.structure": {
-        "type": "array",
-        "items": {
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "c-r-c:create-component",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "c-r-c",
+      "properties": {
+        "c-r-c.structure": {
+          "type": "array",
+          "description": "Define your own structure!",
+          "items": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "description": "Nested structure (optional).",
+                "items": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/definitions/UserStructure"
+                    }
+                  ]
+                }
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "folder",
+                  "file"
+                ],
+                "description": "Type of item (folder or file)."
+              },
+              "title": {
+                "type": "string",
+                "description": "Folder or file title."
+              },
+              "content": {
+                "type": "string",
+                "description": "Content of the file (optional).",
+                "default": ""
+              }
+            },
+            "required": [
+              "type",
+              "title"
+            ]
+          }
+        }
+      },
+      "definitions": {
+        "UserStructure": {
           "type": "object",
           "properties": {
             "children": {
-              "$ref": "#/definitions/Schema"
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "#/definitions/UserStructure"
+                  }
+                ]
+              }
             },
             "type": {
               "type": "string",
-              "enum": ["folder", "file"]
+              "enum": [
+                "folder",
+                "file"
+              ]
             },
             "title": {
               "type": "string"
@@ -55,39 +106,15 @@
               "type": "string"
             }
           },
-          "required": ["type", "title", "content"],
-          "additionalProperties": false
-        },
-        "definitions": {
-          "Schema": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "children": {
-                  "$ref": "#/definitions/Schema"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": ["folder", "file"]
-                },
-                "title": {
-                  "type": "string"
-                },
-                "content": {
-                  "type": "string"
-                }
-              },
-              "required": ["type", "title", "content"],
-              "additionalProperties": false
-            }
-          }
-        },
-        "description": "The structure of the component"
+          "required": [
+            "type",
+            "title"
+          ]
+        }
       }
     }
-  }
-},  "scripts": {
+  },
+  "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
@@ -96,14 +123,17 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.98.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.98.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
-    "eslint": "^9.21.0",
-    "typescript": "^5.7.3",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
   }
 }
