@@ -2,7 +2,7 @@
   "name": "c-r-c-myyourtheir",
   "displayName": "Create Customized Component (c-r-c)",
   "description": "",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.98.0"
   },
@@ -20,7 +20,7 @@
     "commands": [
       {
         "command": "c-r-c:create-component",
-        "title": "Create React Component (c-r-c)",
+        "title": "Create component (c-r-c)",
         "category": "c-r-c"
       }
     ],
